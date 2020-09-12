@@ -18,5 +18,5 @@ public class MessageDto {
     private User author;
     private User receiver;
     private String content;
-    private boolean read = false;
+    private boolean read;
 }

@@ -1,5 +1,6 @@
 package com.communicator.service;
 
+import com.communicator.domain.Attachments;
 import com.communicator.domain.User;
 import com.communicator.domain.UserDto;
 import com.communicator.exception.UserDontExistsException;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -27,8 +30,16 @@ public class UserService {
         return mapper.mapToUserDto(repository.findById(id).orElseThrow(UserNotFoundException::new));
     }
 
+    @Transactional
     public UserDto create(UserDto userDto){
         User mappedUser = mapper.mapToUser(userDto);
+        Attachments profilePicture = Attachments.builder()
+                .fileName("950-9501315_katie-notopoulos-katienotopoulos-i-write-about-tech-user")
+                .fileExtension("PNG")
+                .filePath("https://www.pngkey.com/png/detail/950-9501315_katie-notopoulos-katienotopoulos-i-write-about-tech-user.png")
+                .build();
+        mappedUser.setCreationDate(new Date());
+        mappedUser.setProfilePic(profilePicture);
         User savedUser = repository.save(mappedUser);
         return mapper.mapToUserDto(savedUser);
     }

@@ -23,50 +23,46 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    private String firstName;
+    private String firstname;
     @NotNull
     private String lastname;
     @NotNull
     private String email;
     @NotNull
     private Date birthday;
-    @Builder.Default
-    private Date creationDate = new Date();
+    @NotNull
+    private Date creationDate;
     @Builder.Default
     private boolean activated = false;
     @Builder.Default
     private boolean banned = false;
     @Builder.Default
-    private boolean status = false;
-    @OneToOne
-    @Builder.Default
-    private Attachments profilePic = Attachments.builder()
-            .fileName("950-9501315_katie-notopoulos-katienotopoulos-i-write-about-tech-user")
-            .fileExtension("PNG")
-            .filePath("https://www.pngkey.com/png/detail/950-9501315_katie-notopoulos-katienotopoulos-i-write-about-tech-user.png")
-            .build();
+    private int status = 0;
+    @NotNull
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Attachments profilePic;
     @OneToMany(
             targetEntity = Conversation.class,
             mappedBy = "receiverUser",
-            cascade = CascadeType.PERSIST,
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @Builder.Default
     private List<Conversation> conversation = new ArrayList<>();
     @OneToMany(
             targetEntity = Message.class,
             mappedBy = "author",
-            cascade = CascadeType.PERSIST,
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @Builder.Default
     private List<Message> messageAuthor = new ArrayList<>();
     @OneToMany(
             targetEntity = Message.class,
             mappedBy = "receiver",
-            cascade = CascadeType.PERSIST,
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @Builder.Default
     private List<Message> messageReceiver = new ArrayList<>();
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @Builder.Default
     private FriendsList friendsList = FriendsList.builder().build();
 }

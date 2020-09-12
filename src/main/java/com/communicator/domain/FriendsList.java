@@ -25,7 +25,7 @@ public class FriendsList {
     @OneToMany(
             targetEntity = User.class,
             mappedBy = "friendsList",
-            cascade = CascadeType.PERSIST,
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @Builder.Default
     private List<User> friendsList = new ArrayList<>();

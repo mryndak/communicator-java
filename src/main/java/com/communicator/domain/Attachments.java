@@ -27,6 +27,6 @@ public class Attachments {
     private String fileExtension;
     @ManyToOne
     private Message fileInMessage;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private User userAttachment;
 }

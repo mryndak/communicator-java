@@ -27,7 +27,7 @@ public class Conversation {
     @OneToMany(
             targetEntity = Message.class,
             mappedBy = "conversation",
-            cascade = CascadeType.PERSIST,
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     private List<Message> conversationMessages;
 }

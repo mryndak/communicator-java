@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserListDto {
-    private String firstName;
+    private String firstname;
     private String lastname;
-    private boolean status;
+    private int status;
     private AttachmentsDto profilePic;
 }

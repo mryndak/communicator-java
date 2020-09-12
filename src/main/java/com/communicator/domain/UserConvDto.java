@@ -16,6 +16,6 @@ public class UserConvDto {
     private String firstName;
     private String lastname;
     private Date birthday;
-    private boolean status;
+    private int status;
     private AttachmentsDto profilePic;
 }

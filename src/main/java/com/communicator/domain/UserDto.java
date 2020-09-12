@@ -16,13 +16,13 @@ import java.util.List;
 @Builder
 public class UserDto {
     private Long id;
-    private String firstName;
+    private String firstname;
     private String lastname;
     private String email;
     private Date birthday;
     private Date creationDate;
     private boolean activated;
     private boolean banned;
-    private boolean status;
+    private int status;
     private AttachmentsDto profilePic;
 }
