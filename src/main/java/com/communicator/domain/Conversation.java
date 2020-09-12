@@ -14,14 +14,15 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "_conversation")
 public class Conversation {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotNull
     @ManyToOne
-    private Users receiverUsers;
+    private User receiverUser;
     @NotNull
     @OneToMany(
             targetEntity = Message.class,

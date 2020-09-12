@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UsersSearchDto {
+public class UserListDto {
     private String firstName;
     private String lastname;
-    private Attachments profilePic;
+    private boolean status;
+    private AttachmentsDto profilePic;
 }

@@ -5,14 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ConversationDto {
-    private Long id;
-    private UserConvDto receiverUser;
-    private List<MessageBlopDto> conversation;
+public class UserSearchDto {
+    private String firstName;
+    private String lastname;
+    private AttachmentsDto profilePic;
 }

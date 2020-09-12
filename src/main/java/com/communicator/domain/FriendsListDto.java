@@ -12,6 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class FriendsListDto {
-    private long id;
-    private List<UsersListDto> friendsList;
+    private Long id;
+    private List<UserListDto> friendsList;
 }

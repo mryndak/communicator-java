@@ -11,8 +11,8 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = UserMapper.class)
 public interface FriendsListMapper{
     @Mapping(target = "friendsList", expression = "java(userMapper.mapUserListDtoListToUserList(friendsListDto.getFriendsList()))")
-    FriendsList mapToFriendList(FriendsListDto friendsListDto);
-    FriendsListDto mapToFriendList(FriendsList friendsList);
+    FriendsList mapToFriendsList(FriendsListDto friendsListDto);
+    FriendsListDto mapToFriendsListDto(FriendsList friendsList);
     List<FriendsList> mapToFriendsListList(List<FriendsListDto> friendsListDtoList);
     List<FriendsListDto> mapToFriendsListDtoList(List<FriendsList> friendsListList);
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,11 +16,12 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Users {
+@Table(name = "_users")
+public class User {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotNull
     private String firstName;
     @NotNull
@@ -36,27 +38,35 @@ public class Users {
     private boolean banned = false;
     @Builder.Default
     private boolean status = false;
-    @NotNull
     @OneToOne
-    private Attachments profilePic;
+    @Builder.Default
+    private Attachments profilePic = Attachments.builder()
+            .fileName("950-9501315_katie-notopoulos-katienotopoulos-i-write-about-tech-user")
+            .fileExtension("PNG")
+            .filePath("https://www.pngkey.com/png/detail/950-9501315_katie-notopoulos-katienotopoulos-i-write-about-tech-user.png")
+            .build();
     @OneToMany(
             targetEntity = Conversation.class,
-            mappedBy = "receiverUsers",
+            mappedBy = "receiverUser",
             cascade = CascadeType.PERSIST,
             fetch = FetchType.LAZY)
-    private List<Conversation> conversation;
+    @Builder.Default
+    private List<Conversation> conversation = new ArrayList<>();
     @OneToMany(
             targetEntity = Message.class,
             mappedBy = "author",
             cascade = CascadeType.PERSIST,
             fetch = FetchType.LAZY)
-    private List<Message> messageAuthor;
+    @Builder.Default
+    private List<Message> messageAuthor = new ArrayList<>();
     @OneToMany(
             targetEntity = Message.class,
             mappedBy = "receiver",
             cascade = CascadeType.PERSIST,
             fetch = FetchType.LAZY)
-    private List<Message> messageReceiver;
+    @Builder.Default
+    private List<Message> messageReceiver = new ArrayList<>();
     @ManyToOne
-    private FriendsList friendsList;
+    @Builder.Default
+    private FriendsList friendsList = FriendsList.builder().build();
 }

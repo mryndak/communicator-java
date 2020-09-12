@@ -14,17 +14,21 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "_message")
 public class Message {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotNull
     @ManyToOne
-    private Users author;
+    private User author;
     @ManyToOne
-    private Users receiver;
+    private User receiver;
+    @NotNull
     private String content;
+    @Builder.Default
+    private boolean read = false;
     @OneToMany
     private List<Attachments> attachmentsList;
     @ManyToOne

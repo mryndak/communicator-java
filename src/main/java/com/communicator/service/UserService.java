@@ -1,7 +1,59 @@
 package com.communicator.service;
 
-import org.springframework.stereotype.Component;
+import com.communicator.domain.User;
+import com.communicator.domain.UserDto;
+import com.communicator.exception.UserDontExistsException;
+import com.communicator.exception.UserNotFoundException;
+import com.communicator.mapper.UserMapper;
+import com.communicator.service.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
-@Component
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
 public class UserService {
+    private final UserRepository repository;
+    private final UserMapper mapper;
+
+    public List<UserDto> getAll(){
+        return mapper.mapUserListToUserDtoList(repository.findAll());
+    }
+
+    public UserDto getById(Long id) {
+        return mapper.mapToUserDto(repository.findById(id).orElseThrow(UserNotFoundException::new));
+    }
+
+    public UserDto create(UserDto userDto){
+        User mappedUser = mapper.mapToUser(userDto);
+        User savedUser = repository.save(mappedUser);
+        return mapper.mapToUserDto(savedUser);
+    }
+
+    public UserDto update(UserDto userDto){
+        if(userDto.getId() != null){
+            isUserExisting(userDto.getId());
+        }
+        User mappedUser = mapper.mapToUser(userDto);
+        User savedUser = repository.save(mappedUser);
+        return mapper.mapToUserDto(savedUser);
+    }
+
+    public void delete(UserDto userDto){
+        if(userDto.getId() != null){
+            isUserExisting(userDto.getId());
+        }
+        User mappedUser = mapper.mapToUser(userDto);
+        repository.delete(mappedUser);
+    }
+
+    private void isUserExisting(Long userId) {
+        if(!repository.existsById(userId)){
+            throw new UserDontExistsException();
+        }
+    }
+
 }

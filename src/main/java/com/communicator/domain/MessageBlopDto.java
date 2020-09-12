@@ -12,8 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class MessageBlopDto {
-    private long id;
-    private Users author;
+    private Long id;
+    private User author;
     private String content;
     private List<Attachments> attachmentsList;
 }

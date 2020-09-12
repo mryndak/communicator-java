@@ -5,13 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UsersListDto {
+public class UserConvDto {
+    private Long id;
     private String firstName;
     private String lastname;
+    private Date birthday;
     private boolean status;
-    private Attachments profilePic;
+    private AttachmentsDto profilePic;
 }

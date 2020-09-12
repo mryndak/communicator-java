@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,16 +15,18 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "_friends_list")
 public class FriendsList {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotNull
     @OneToMany(
-            targetEntity = Users.class,
+            targetEntity = User.class,
             mappedBy = "friendsList",
             cascade = CascadeType.PERSIST,
             fetch = FetchType.LAZY)
-    private List<Users> friendsList;
+    @Builder.Default
+    private List<User> friendsList = new ArrayList<>();
 }

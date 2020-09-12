@@ -13,11 +13,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "_attachments")
 public class Attachments {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotNull
     private String fileName;
     @NotNull
@@ -27,5 +28,5 @@ public class Attachments {
     @ManyToOne
     private Message fileInMessage;
     @OneToOne
-    private Users usersAttachment;
+    private User userAttachment;
 }
