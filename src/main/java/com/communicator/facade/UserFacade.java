@@ -33,18 +33,21 @@ public class UserFacade {
         return service.update(userDto);
     }
 
-    public UserDto changeActivated(UserDto userDto, boolean value){
-        UserDto toggledUser = toggle.statusChanger(userDto, true, value);
+    public UserDto changeActivated(Long id, boolean value){
+        UserDto fetchedUser = service.getById(id);
+        UserDto toggledUser = toggle.statusChanger(fetchedUser, true, value);
         return service.update(toggledUser);
     }
 
-    public UserDto changeBanned(UserDto userDto, boolean value){
-        UserDto toggledUser = toggle.statusChanger(userDto, false, value);
+    public UserDto changeBanned(Long id, boolean value){
+        UserDto fetchedUser = service.getById(id);
+        UserDto toggledUser = toggle.statusChanger(fetchedUser, false, value);
         return service.update(toggledUser);
     }
 
-    public UserDto changeStatus(UserDto userDto, int status){
-        UserDto toggledUser = toggle.statusChanger(userDto, status);
+    public UserDto changeStatus(Long id, int status){
+        UserDto fetchedUser = service.getById(id);
+        UserDto toggledUser = toggle.statusChanger(fetchedUser, status);
         return service.update(toggledUser);
     }
 

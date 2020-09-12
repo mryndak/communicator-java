@@ -24,4 +24,19 @@ public class UserController {
         return facade.createUser(userDto);
     }
 
+    @PutMapping(value = "/{id}/banned", produces = APPLICATION_JSON_VALUE)
+    public UserDto changeBanStatus(@PathVariable Long id, @RequestParam boolean value){
+        return facade.changeBanned(id, value);
+    }
+
+    @PutMapping(value = "/{id}/activated", produces = APPLICATION_JSON_VALUE)
+    public UserDto changeActiveStatus(@PathVariable Long id, @RequestParam boolean value){
+        return facade.changeActivated(id, value);
+    }
+
+    @PutMapping(value = "/{id}/status", produces = APPLICATION_JSON_VALUE)
+    public UserDto changeStatusStatus(@PathVariable Long id, @RequestParam int value){
+        return facade.changeStatus(id, value);
+    }
+
 }
