@@ -25,4 +25,5 @@ public class UserDto {
     private boolean banned;
     private int status;
     private AttachmentsDto profilePic;
+    private FriendsListDto friendsListDto;
 }
