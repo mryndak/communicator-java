@@ -62,7 +62,4 @@ public class User {
             fetch = FetchType.LAZY)
     @Builder.Default
     private List<Message> messageReceiver = new ArrayList<>();
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @Builder.Default
-    private FriendsList friendsList = FriendsList.builder().build();
 }

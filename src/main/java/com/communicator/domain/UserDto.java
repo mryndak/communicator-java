@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,5 +26,5 @@ public class UserDto {
     private boolean banned;
     private int status;
     private AttachmentsDto profilePic;
-    private FriendsListDto friendsListDto;
+    private List<ConversationDto> conversation;
 }
