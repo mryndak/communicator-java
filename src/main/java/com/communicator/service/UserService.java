@@ -3,6 +3,7 @@ package com.communicator.service;
 import com.communicator.domain.Attachments;
 import com.communicator.domain.User;
 import com.communicator.domain.UserDto;
+import com.communicator.domain.UserSearchDto;
 import com.communicator.exception.UserDontExistsException;
 import com.communicator.exception.UserNotFoundException;
 import com.communicator.mapper.UserMapper;
@@ -28,6 +29,36 @@ public class UserService {
 
     public UserDto getById(Long id) {
         return mapper.mapToUserDto(repository.findById(id).orElseThrow(UserNotFoundException::new));
+    }
+
+    public List<UserSearchDto> getByNamePattern(List<String> pattern) {
+        List<User> usersTypeA = repository.findUsingNamePatternTypeA(pattern.get(0), pattern.get(1));
+        List<User> usersTypeB = repository.findUsingNamePatternTypeB(pattern.get(0), pattern.get(1));
+        if(usersTypeA.size() > usersTypeB.size()){
+            return mapper.mapUserListToUserSearchDtoList(usersTypeA);
+        }else if(usersTypeB.size() > usersTypeA.size()){
+            return mapper.mapUserListToUserSearchDtoList(usersTypeB);
+        }else{
+            throw new UserNotFoundException();
+        }
+    }
+
+    public List<UserSearchDto> getBySingleNamePattern(String pattern) {
+        List<User> usersTypeA = repository.findUsingSingleNamePatternTypeA(pattern);
+        List<User> usersTypeB = repository.findUsingSingleNamePatternTypeB(pattern);
+        if(usersTypeA.size() > usersTypeB.size()){
+            return mapper.mapUserListToUserSearchDtoList(usersTypeA);
+        }else if(usersTypeB.size() > usersTypeA.size()){
+            return mapper.mapUserListToUserSearchDtoList(usersTypeB);
+        }else{
+            throw new UserNotFoundException();
+        }
+    }
+
+    public List<UserSearchDto> getByMailPattern(String pattern) {
+        List<User> userList = repository.findUsingMailPattern(pattern);
+        log.info(String.valueOf(userList.size()));
+        return mapper.mapUserListToUserSearchDtoList(userList);
     }
 
     @Transactional
@@ -66,5 +97,4 @@ public class UserService {
             throw new UserDontExistsException();
         }
     }
-
 }

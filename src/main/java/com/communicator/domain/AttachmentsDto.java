@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class AttachmentsDto {
-    private Long id;
     private String fileName;
     private String filePath;
-    private String fileExtension;
 }

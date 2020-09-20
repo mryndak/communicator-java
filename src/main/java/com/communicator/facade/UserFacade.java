@@ -6,12 +6,17 @@ import com.communicator.facade.logic.UserStatusToggle;
 import com.communicator.mapper.UserMapper;
 import com.communicator.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class UserFacade {
     private final UserService service;
     private final UserStatusToggle toggle;
@@ -53,6 +58,18 @@ public class UserFacade {
 
     public void deleteUser(UserDto userDto){
         service.delete(userDto);
+    }
+
+    public List<UserSearchDto> getUserByRegexPattern(Long type, String pattern) {
+        log.info(String.valueOf(pattern));
+        if(type == 0){
+            return service.getBySingleNamePattern(pattern);
+        }else if(type == 1){
+            List<String> patterns = Arrays.asList(pattern.split(" "));
+            return service.getByNamePattern(patterns);
+        }else{
+            return service.getByMailPattern(pattern);
+        }
     }
 
 }
