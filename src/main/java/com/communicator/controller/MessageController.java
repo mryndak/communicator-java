@@ -15,7 +15,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class MessageController {
     private final MessageFacade facade;
     @PostMapping(produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public MessageDto createMessage(@RequestBody MessageDto messageDto){
+    public MessageDto createMessage(MessageDto messageDto){
         return facade.createMessage(messageDto);
     }
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
