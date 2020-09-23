@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class MessageReceivedDto {
-    private User author;
+    private UserConvDto author;
     private String content;
     private String attachmentsBoolean;
 }

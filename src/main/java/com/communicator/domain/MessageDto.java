@@ -15,8 +15,8 @@ import java.util.List;
 @Builder
 public class MessageDto {
     private Long id;
-    private User author;
-    private User receiver;
+    private UserConvDto author;
+    private UserConvDto receiver;
     private String content;
     private boolean read;
 }
