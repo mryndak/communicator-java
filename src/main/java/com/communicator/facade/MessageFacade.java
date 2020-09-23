@@ -24,4 +24,7 @@ public class MessageFacade {
         return service.create(messageDto);
     }
 
+    public MessageDto getMessageById(Long id) {
+        return service.getById(id);
+    }
 }

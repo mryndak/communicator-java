@@ -18,4 +18,8 @@ public class MessageController {
     public MessageDto createMessage(@RequestBody MessageDto messageDto){
         return facade.createMessage(messageDto);
     }
+    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    public MessageDto getMessage(@PathVariable Long id){
+        return facade.getMessageById(id);
+    }
 }

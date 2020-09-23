@@ -17,6 +17,7 @@ public class MessageDto {
     private Long id;
     private UserConvDto author;
     private UserConvDto receiver;
+    private ConversationDto conversation;
     private String content;
     private boolean read;
 }
