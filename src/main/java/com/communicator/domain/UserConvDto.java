@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 public class UserConvDto {
     private Long id;
-    private String firstName;
+    private String firstname;
     private String lastname;
     private Date birthday;
     private int status;

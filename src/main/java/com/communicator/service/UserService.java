@@ -1,9 +1,6 @@
 package com.communicator.service;
 
-import com.communicator.domain.Attachments;
-import com.communicator.domain.User;
-import com.communicator.domain.UserDto;
-import com.communicator.domain.UserSearchDto;
+import com.communicator.domain.*;
 import com.communicator.exception.UserDontExistsException;
 import com.communicator.exception.UserNotFoundException;
 import com.communicator.mapper.UserMapper;
@@ -29,6 +26,10 @@ public class UserService {
 
     public UserDto getById(Long id) {
         return mapper.mapToUserDto(repository.findById(id).orElseThrow(UserNotFoundException::new));
+    }
+
+    public UserConvDto getConvById(Long id) {
+        return mapper.mapToUserConvDto(repository.findById(id).orElseThrow(UserNotFoundException::new));
     }
 
     public List<UserSearchDto> getByNamePattern(List<String> pattern) {

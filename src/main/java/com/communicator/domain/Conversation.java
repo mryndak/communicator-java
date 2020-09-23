@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,12 +23,16 @@ public class Conversation {
     private Long id;
     @NotNull
     @ManyToOne
+    private User authorUser;
+    @NotNull
+    @ManyToOne
     private User receiverUser;
     @NotNull
+    @Builder.Default
     @OneToMany(
             targetEntity = Message.class,
             mappedBy = "conversation",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    private List<Message> conversationMessages;
+    private List<Message> conversationMessages = new ArrayList<>();
 }

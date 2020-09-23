@@ -26,5 +26,6 @@ public class UserDto {
     private boolean banned;
     private int status;
     private AttachmentsDto profilePic;
-    private List<ConversationDto> conversation;
+    private List<ConversationDto> authorConversation;
+    private List<ConversationDto> receiverConversation;
 }

@@ -34,18 +34,12 @@ public class AttachmentsService {
     }
 
     public AttachmentsDto update(AttachmentsDto attachmentsDto){
-        if(attachmentsDto.getId() != null){
-            isAttachmentExisting(attachmentsDto.getId());
-        }
         Attachments mappedAttachments = mapper.mapToAttachments(attachmentsDto);
         Attachments savedAttachments = repository.save(mappedAttachments);
         return mapper.mapToAttachmentsDto(savedAttachments);
     }
 
     public void delete(AttachmentsDto attachmentsDto){
-        if(attachmentsDto.getId() != null){
-            isAttachmentExisting(attachmentsDto.getId());
-        }
         Attachments mappedAttachments = mapper.mapToAttachments(attachmentsDto);
         repository.delete(mappedAttachments);
     }

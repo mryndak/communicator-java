@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserSearchDto {
+    private Long id;
     private String firstname;
     private String lastname;
     private AttachmentsDto profilePic;

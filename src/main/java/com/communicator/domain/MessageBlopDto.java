@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 public class MessageBlopDto {
     private Long id;
-    private User author;
+    private UserConvDto author;
     private String content;
-    private List<Attachments> attachmentsList;
+    private List<AttachmentsDto> attachmentsList;
 }

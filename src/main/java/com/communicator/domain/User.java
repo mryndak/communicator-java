@@ -43,11 +43,18 @@ public class User {
     private Attachments profilePic;
     @OneToMany(
             targetEntity = Conversation.class,
+            mappedBy = "authorUser",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Conversation> authorConversation = new ArrayList<>();
+    @OneToMany(
+            targetEntity = Conversation.class,
             mappedBy = "receiverUser",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @Builder.Default
-    private List<Conversation> conversation = new ArrayList<>();
+    private List<Conversation> receiverConversation = new ArrayList<>();
     @OneToMany(
             targetEntity = Message.class,
             mappedBy = "author",

@@ -1,5 +1,6 @@
 package com.communicator.facade;
 
+import com.communicator.domain.UserConvDto;
 import com.communicator.domain.UserDto;
 import com.communicator.domain.UserSearchDto;
 import com.communicator.facade.logic.UserStatusToggle;
@@ -20,7 +21,6 @@ import java.util.Map;
 public class UserFacade {
     private final UserService service;
     private final UserStatusToggle toggle;
-    private final UserMapper mapper;
 
     public List<UserDto> getAllUsers(){
         return service.getAll();
@@ -28,6 +28,10 @@ public class UserFacade {
 
     public UserDto getUserById(Long id){
         return service.getById(id);
+    }
+
+    public UserConvDto getUserConvById(Long id){
+        return service.getConvById(id);
     }
 
     public UserDto createUser(UserDto userDto){

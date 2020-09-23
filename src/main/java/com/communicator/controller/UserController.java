@@ -1,5 +1,6 @@
 package com.communicator.controller;
 
+import com.communicator.domain.UserConvDto;
 import com.communicator.domain.UserDto;
 import com.communicator.domain.UserSearchDto;
 import com.communicator.facade.UserFacade;
@@ -21,6 +22,11 @@ public class UserController {
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     public UserDto getUserById(@PathVariable Long id){
         return facade.getUserById(id);
+    }
+
+    @GetMapping(value = "/{id}/conv", produces = APPLICATION_JSON_VALUE)
+    public UserConvDto getConvUserById(@PathVariable Long id){
+        return facade.getUserConvById(id);
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)

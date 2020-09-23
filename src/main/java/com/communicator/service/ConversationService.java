@@ -27,6 +27,10 @@ public class ConversationService {
         return mapper.mapToConversationDto(repository.findById(id).orElseThrow(ConversationNotFoundException::new));
     }
 
+    public ConversationDto getByTwoId(Long idA, Long idB){
+        return mapper.mapToConversationDto(repository.findConversationBetween(idA, idB));
+    }
+
     public ConversationDto create(ConversationDto conversationDto){
         Conversation mappedConversation = mapper.mapToConversation(conversationDto);
         Conversation savedConversation = repository.save(mappedConversation);
@@ -34,18 +38,12 @@ public class ConversationService {
     }
 
     public ConversationDto update(ConversationDto conversationDto){
-        if(conversationDto.getId() != null){
-            isAttachmentExisting(conversationDto.getId());
-        }
         Conversation mappedConversation = mapper.mapToConversation(conversationDto);
         Conversation savedConversation = repository.save(mappedConversation);
         return mapper.mapToConversationDto(savedConversation);
     }
 
     public void delete(ConversationDto conversationDto){
-        if(conversationDto.getId() != null){
-            isAttachmentExisting(conversationDto.getId());
-        }
         Conversation mappedConversation = mapper.mapToConversation(conversationDto);
         repository.delete(mappedConversation);
     }
@@ -54,5 +52,9 @@ public class ConversationService {
         if(!repository.existsById(userId)){
             throw new ConversationDontExistsException();
         }
+    }
+
+    public List<ConversationDto> getByUserId(Long authorId) {
+        return mapper.mapToConversationDtoList(repository.findAllConversations(authorId));
     }
 }

@@ -13,6 +13,7 @@ import java.util.List;
 @Builder
 public class ConversationDto {
     private Long id;
+    private UserConvDto authorUser;
     private UserConvDto receiverUser;
-    private List<MessageBlopDto> conversation;
+    private List<MessageBlopDto> conversationMessages;
 }
