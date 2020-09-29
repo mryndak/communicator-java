@@ -20,6 +20,6 @@ public class MailCreatorService {
         context.setVariable("userData", mail.getRecipient());
         context.setVariable("unreadMessages", mail.getUnreadMessage());
         context.setVariable("adminConfig", adminConfig);
-        return templateEngine.process("mail/daily/new-mail-template.html", context);
+        return templateEngine.process("mail/daily-mail-template.html", context);
     }
 }

@@ -24,7 +24,7 @@ public class EmailScheduler {
     private final EmailService emailService;
     private final UserService userService;
 
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "* */5 * * * *")
     public void countUnreadMessages(){
         List<GroupMessageDto> conv = groupMessageService.getAll();
         List<UserDto> users = userService.getAll();
