@@ -32,12 +32,12 @@
         <span style="font-size: 2.75em;font-weight: 600;" th:text="'Witaj ' + ${userData.getFirstname()} + '!'"></span>
     </p>
     <p style="font-size: 1.25rem">
-        Masz <span th:span="${unreadMessages}"></span> nieprzeczytane wiadomości
+        Masz <span th:text="${unreadMessages}"></span> nowych nieprzeczytanych wiadomości
     </p>
+    <img alt="scrum_board" style="width: 50%;margin-left: 50%;" src="https://raw.githubusercontent.com/IvanPlease/communicator-java/master/src/main/resources/templates/mail/undraw_letter_background.png"/>
     <p style="margin-block-end: 0;margin-block-start: 3em;font-size:1em;text-align: center;">
         <span th:text="${adminConfig.getAdminName()} + ', ' + ${adminConfig.getAdminStreet()} + ' ' + ${adminConfig.getAdminStreetNumber()} + ', ' + ${adminConfig.getAdminMail()}"></span>
     </p>
-    <img alt="scrum_board" style="width: 50%;margin-left: 50%;" src="undraw_letter_background.png"/>
 </div>
 </body>
 </html>
