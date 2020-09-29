@@ -31,5 +31,5 @@ public class Attachments {
     private User userAttachment;
     @OneToOne(cascade = CascadeType.PERSIST,
             fetch = FetchType.EAGER)
-    private User groupPicture;
+    private GroupMessage groupPicture;
 }
