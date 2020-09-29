@@ -33,6 +33,4 @@ public class GroupMessage {
     @Builder.Default
     private List<Message> messagesInConv = new ArrayList<>();
     private String customName;
-    @OneToOne
-    private Attachments groupPicture;
 }
