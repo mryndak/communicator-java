@@ -31,8 +31,8 @@ public class UserFacade {
         return service.getConvById(id);
     }
 
-    public void createUser(UserDto userDto){
-        service.create(userDto);
+    public UserDto createUser(UserDto userDto){
+        return service.create(userDto);
     }
 
     public UserDto updateUser(UserDto userDto){

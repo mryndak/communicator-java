@@ -2,6 +2,7 @@ package com.communicator.service;
 
 import com.communicator.domain.Message;
 import com.communicator.domain.MessageDto;
+import com.communicator.domain.NotificationDto;
 import com.communicator.exception.MessageDontExistsException;
 import com.communicator.exception.MessageNotFoundException;
 import com.communicator.mapper.MessageMapper;
@@ -11,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -18,11 +22,20 @@ import javax.transaction.Transactional;
 public class MessageService {
     private final MessageRepository repository;
     private final MessageMapper mapper;
+    private final NotificationService service;
 
     @Transactional
     public MessageDto create(MessageDto messageDto){
         Message mappedMessage = mapper.mapToMessage(messageDto);
         Message savedMessage = repository.save(mappedMessage);
+        List<String> params = new ArrayList<>();
+        params.add(String.valueOf(mappedMessage.getGroupMessage().getId()));
+        NotificationDto notificationDto = NotificationDto.builder()
+                .receiver(messageDto.getAuthor())
+                .typeOfOperation("newMessage")
+                .operationsParameters(params)
+                .build();
+        service.create(notificationDto);
         repository.createMessageInConv(messageDto.getGroupMessage().getId(), savedMessage.getId());
         return mapper.mapToMessageDto(savedMessage);
     }
@@ -52,5 +65,10 @@ public class MessageService {
             log.error(e.getMessage());
         }
         return MessageDto.builder().build();
+    }
+
+    public HashMap<Long, Boolean> getAllMessagesInConv(Long userId) {
+        List<Message> user;
+        return new HashMap<>();
     }
 }

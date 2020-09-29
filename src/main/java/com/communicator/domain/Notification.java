@@ -7,26 +7,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "_attachments")
-public class Attachments {
+@Table(name = "_notification")
+public class Notification {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    private String fileName;
-    @NotNull
-    private String filePath;
-    @NotNull
-    private String fileExtension;
     @ManyToOne
-    private Message fileInMessage;
-    @OneToOne(cascade = CascadeType.ALL)
-    private User userAttachment;
+    private User receiver;
+    @NotNull
+    private String typeOfOperation;
+    @ElementCollection
+    private List<String> operationsParameters = new ArrayList<>();
 }

@@ -43,8 +43,8 @@ public class UserController {
     }
 
     @PostMapping(produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public void createUser(@RequestBody UserDto userDto){
-        facade.createUser(userDto);
+    public UserDto createUser(@RequestBody UserDto userDto){
+        return facade.createUser(userDto);
     }
 
     @PutMapping(produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)

@@ -2,6 +2,8 @@ package com.communicator.service;
 
 import com.communicator.domain.GroupMessage;
 import com.communicator.domain.GroupMessageDto;
+import com.communicator.domain.Notification;
+import com.communicator.domain.NotificationDto;
 import com.communicator.exception.GroupMessageNotFoundException;
 import com.communicator.mapper.GroupMessageMapper;
 import com.communicator.service.repository.GroupMessageRepository;
@@ -9,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,6 +19,7 @@ import java.util.List;
 @Slf4j
 public class GroupMessageService {
     private final GroupMessageRepository repository;
+    private final NotificationService service;
     private final GroupMessageMapper mapper;
 
     public List<GroupMessageDto> getAll(){
@@ -35,6 +39,16 @@ public class GroupMessageService {
     public GroupMessageDto create(GroupMessageDto groupMessageDto){
         GroupMessage mappedConversation = mapper.mapToGroupMessage(groupMessageDto);
         GroupMessage savedConversation = repository.save(mappedConversation);
+        List<String> params = new ArrayList<>();
+        params.add(String.valueOf(savedConversation.getId()));
+        NotificationDto notificationDto = NotificationDto.builder()
+                .receiver(groupMessageDto.getUsersInConv().get(0))
+                .typeOfOperation("newConversation")
+                .operationsParameters(params)
+                .build();
+        service.create(notificationDto);
+        notificationDto.setReceiver(groupMessageDto.getUsersInConv().get(1));
+        service.create(notificationDto);
         return mapper.mapToGroupMessageDto(savedConversation);
     }
 

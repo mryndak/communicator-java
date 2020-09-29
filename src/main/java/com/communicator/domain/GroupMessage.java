@@ -22,7 +22,7 @@ public class GroupMessage {
     private Long id;
     @NotNull
     @ManyToMany(
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER)
     @Builder.Default
     private List<User> usersInConv = new ArrayList<>();

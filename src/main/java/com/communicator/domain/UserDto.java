@@ -24,4 +24,5 @@ public class UserDto {
     private int status;
     private AttachmentsDto profilePic;
     private List<GroupMessageDto> conversations;
+    private List<NotificationDto> notifications;
 }

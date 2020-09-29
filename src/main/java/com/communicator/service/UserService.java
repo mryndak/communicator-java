@@ -80,18 +80,19 @@ public class UserService {
     }
 
     @Transactional
-    public void create(UserDto userDto){
+    public UserDto create(UserDto userDto){
         try{
             if(!isUserExistingByData(mapper.mapToUserDataChecker(userDto))){
                 User mappedUser = mapper.mapToUser(userDto);
                 mappedUser.setCreationDate(new Date());
-                repository.save(mappedUser);
+                return mapper.mapToUserDto(repository.save(mappedUser));
             }else{
                 throw new UserExistsException();
             }
         }catch (UserExistsException e){
             log.error(e.getMessage());
         }
+        return new UserDto();
     }
 
     public UserDto update(UserDto userDto){

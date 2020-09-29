@@ -39,12 +39,12 @@ public class User {
     @Builder.Default
     private int status = 0;
     @NotNull
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     private Attachments profilePic;
     @ManyToMany(
             targetEntity = GroupMessage.class,
             mappedBy = "usersInConv",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER)
     @Builder.Default
     private List<GroupMessage> conversations = new ArrayList<>();
@@ -55,4 +55,11 @@ public class User {
             fetch = FetchType.EAGER)
     @Builder.Default
     private List<Message> messageAuthor = new ArrayList<>();
+    @OneToMany(
+            targetEntity = Notification.class,
+            mappedBy = "receiver",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<Notification> notifications = new ArrayList<>();
 }
