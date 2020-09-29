@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -17,6 +19,7 @@ public class MessageService {
     private final MessageRepository repository;
     private final MessageMapper mapper;
 
+    @Transactional
     public MessageDto create(MessageDto messageDto){
         Message mappedMessage = mapper.mapToMessage(messageDto);
         Message savedMessage = repository.save(mappedMessage);
