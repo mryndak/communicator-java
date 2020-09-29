@@ -2,13 +2,10 @@ package com.communicator.service;
 
 import com.communicator.config.AdminConfig;
 import com.communicator.domain.Mail;
-import com.communicator.domain.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor

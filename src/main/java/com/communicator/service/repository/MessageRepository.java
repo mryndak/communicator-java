@@ -1,12 +1,9 @@
 package com.communicator.service.repository;
 
-import com.communicator.domain.Attachments;
 import com.communicator.domain.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.math.BigInteger;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {

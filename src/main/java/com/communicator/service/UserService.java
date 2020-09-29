@@ -69,6 +69,8 @@ public class UserService {
             User mappedUser = mapper.mapToUser(userDto);
             mappedUser.setCreationDate(new Date());
             repository.save(mappedUser);
+        }else{
+            throw new UserExistsException();
         }
     }
 
@@ -79,14 +81,6 @@ public class UserService {
         User mappedUser = mapper.mapToUser(userDto);
         User savedUser = repository.save(mappedUser);
         return mapper.mapToUserDto(savedUser);
-    }
-
-    public void delete(UserDto userDto){
-        if(userDto.getId() != null){
-            isUserExisting(userDto.getId());
-        }
-        User mappedUser = mapper.mapToUser(userDto);
-        repository.delete(mappedUser);
     }
 
     private void isUserExisting(Long userId) {

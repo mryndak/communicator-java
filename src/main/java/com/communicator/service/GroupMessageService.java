@@ -2,7 +2,6 @@ package com.communicator.service;
 
 import com.communicator.domain.GroupMessage;
 import com.communicator.domain.GroupMessageDto;
-import com.communicator.exception.GroupMessageDontExistsException;
 import com.communicator.exception.GroupMessageNotFoundException;
 import com.communicator.mapper.GroupMessageMapper;
 import com.communicator.service.repository.GroupMessageRepository;
@@ -10,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,23 +30,6 @@ public class GroupMessageService {
         GroupMessage mappedConversation = mapper.mapToGroupMessage(groupMessageDto);
         GroupMessage savedConversation = repository.save(mappedConversation);
         return mapper.mapToGroupMessageDto(savedConversation);
-    }
-
-    public GroupMessageDto update(GroupMessageDto groupMessageDto){
-        GroupMessage mappedConversation = mapper.mapToGroupMessage(groupMessageDto);
-        GroupMessage savedConversation = repository.save(mappedConversation);
-        return mapper.mapToGroupMessageDto(savedConversation);
-    }
-
-    public void delete(GroupMessageDto groupMessageDto){
-        GroupMessage mappedConversation = mapper.mapToGroupMessage(groupMessageDto);
-        repository.delete(mappedConversation);
-    }
-
-    private void isAttachmentExisting(Long userId) {
-        if(!repository.existsById(userId)){
-            throw new GroupMessageDontExistsException();
-        }
     }
 
     public List<Long> getByUserId(Long authorId) {

@@ -24,15 +24,5 @@ public interface MessageMapper {
     MessageDto mapToMessageDto(MessageBlopDto messageBlopDto);
     MessageDto mapToMessageDto(MessageReceivedDto messageReceivedDto);
     List<Message> mapMessageBlopDtoListToMessageList(List<MessageBlopDto> messageBlopDtoList);
-    List<Message> mapMessageReceivedDtoListToMessageList(List<MessageReceivedDto> messageReceivedDtoList);
-    List<Message> mapMessageDtoListToMessageList(List<MessageDto> messageDtoList);
     List<MessageBlopDto> mapMessageListToMessageBlopList(List<Message> messageBlopDtoList);
-    List<MessageBlopDto> mapMessageReceivedDtoListToMessageBlopList(List<MessageReceivedDto> messageReceivedDtoList);
-    List<MessageBlopDto> mapMessageDtoListToMessageBlopList(List<MessageDto> messageDtoList);
-    List<MessageReceivedDto> mapMessageBlopDtoListToMessageReceivedDtoList(List<MessageBlopDto> messageBlopDtoList);
-    List<MessageReceivedDto> mapMessageListToMessageReceivedDtoList(List<Message> messageList);
-    List<MessageReceivedDto> mapMessageDtoListToMessageReceivedDtoList(List<MessageDto> messageDtoList);
-    List<MessageDto> mapMessageBlopDtoListToMessageDtoList(List<MessageBlopDto> messageBlopDtoList);
-    List<MessageDto> mapMessageListToMessageDtoList(List<Message> messageList);
-    List<MessageDto> mapMessageReceivedDtoListToMessageDtoList(List<MessageReceivedDto> messageReceivedDtoList);
 }

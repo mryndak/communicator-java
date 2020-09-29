@@ -1,20 +1,16 @@
 package com.communicator.facade;
 
 import com.communicator.domain.UserConvDto;
-import com.communicator.domain.UserDataChecker;
 import com.communicator.domain.UserDto;
 import com.communicator.domain.UserSearchDto;
 import com.communicator.facade.logic.UserStatusToggle;
-import com.communicator.mapper.UserMapper;
 import com.communicator.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -59,10 +55,6 @@ public class UserFacade {
         UserDto fetchedUser = service.getById(id);
         UserDto toggledUser = toggle.statusChanger(fetchedUser, status);
         return service.update(toggledUser);
-    }
-
-    public void deleteUser(UserDto userDto){
-        service.delete(userDto);
     }
 
     public List<UserSearchDto> getUserByRegexPattern(Long type, String pattern) {

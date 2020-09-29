@@ -1,7 +1,6 @@
 package com.communicator.controller;
 
 import com.communicator.domain.UserConvDto;
-import com.communicator.domain.UserDataChecker;
 import com.communicator.domain.UserDto;
 import com.communicator.domain.UserSearchDto;
 import com.communicator.facade.UserFacade;
@@ -9,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -20,6 +18,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class UserController {
     private final UserFacade facade;
 
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    public List<UserDto> getAllUsers(){
+        return facade.getAllUsers();
+    }
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     public UserDto getUserById(@PathVariable Long id){
         return facade.getUserById(id);
@@ -30,7 +32,7 @@ public class UserController {
         return facade.getUserConvById(id);
     }
 
-    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/pattern", produces = APPLICATION_JSON_VALUE)
     public List<UserSearchDto> getUserByRegexPattern(@RequestParam Long searchType, @RequestParam String searchValue){
         return facade.getUserByRegexPattern(searchType, searchValue);
     }
