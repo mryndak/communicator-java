@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,35 +27,50 @@ public class UserService {
     }
 
     public UserDto getById(Long id) {
-        return mapper.mapToUserDto(repository.findById(id).orElseThrow(UserNotFoundException::new));
+        try{
+            User user = repository.findById(id).orElseThrow(UserNotFoundException::new);
+            return mapper.mapToUserDto(user);
+        }catch (UserNotFoundException e){
+            log.error(e.getMessage());
+        }
+        return UserDto.builder().build();
     }
 
     public UserConvDto getConvById(Long id) {
-        return mapper.mapToUserConvDto(repository.findById(id).orElseThrow(UserNotFoundException::new));
+        try{
+            User user = repository.findById(id).orElseThrow(UserNotFoundException::new);
+            return mapper.mapToUserConvDto(user);
+        }catch (UserNotFoundException e){
+            log.error(e.getMessage());
+        }
+        return UserConvDto.builder().build();
     }
 
     public List<UserSearchDto> getByNamePattern(List<String> pattern) {
         List<User> usersTypeA = repository.findUsingNamePatternTypeA(pattern.get(0), pattern.get(1));
         List<User> usersTypeB = repository.findUsingNamePatternTypeB(pattern.get(0), pattern.get(1));
-        if(usersTypeA.size() > usersTypeB.size()){
-            return mapper.mapUserListToUserSearchDtoList(usersTypeA);
-        }else if(usersTypeB.size() > usersTypeA.size()){
-            return mapper.mapUserListToUserSearchDtoList(usersTypeB);
-        }else{
-            throw new UserNotFoundException();
-        }
+        return getUserSearchDtos(usersTypeA, usersTypeB);
     }
 
     public List<UserSearchDto> getBySingleNamePattern(String pattern) {
         List<User> usersTypeA = repository.findUsingSingleNamePatternTypeA(pattern);
         List<User> usersTypeB = repository.findUsingSingleNamePatternTypeB(pattern);
-        if(usersTypeA.size() > usersTypeB.size()){
-            return mapper.mapUserListToUserSearchDtoList(usersTypeA);
-        }else if(usersTypeB.size() > usersTypeA.size()){
-            return mapper.mapUserListToUserSearchDtoList(usersTypeB);
-        }else{
-            throw new UserNotFoundException();
+        return getUserSearchDtos(usersTypeA, usersTypeB);
+    }
+
+    private List<UserSearchDto> getUserSearchDtos(List<User> usersTypeA, List<User> usersTypeB) {
+        try{
+            if(usersTypeA.size() > usersTypeB.size()){
+                return mapper.mapUserListToUserSearchDtoList(usersTypeA);
+            }else if(usersTypeB.size() > usersTypeA.size()){
+                return mapper.mapUserListToUserSearchDtoList(usersTypeB);
+            }else{
+                throw new UserNotFoundException();
+            }
+        }catch (UserNotFoundException e){
+            log.error(e.getMessage());
         }
+        return new ArrayList<>();
     }
 
     public List<UserSearchDto> getByMailPattern(String pattern) {
@@ -65,12 +81,16 @@ public class UserService {
 
     @Transactional
     public void create(UserDto userDto){
-        if(!isUserExistingByData(mapper.mapToUserDataChecker(userDto))){
-            User mappedUser = mapper.mapToUser(userDto);
-            mappedUser.setCreationDate(new Date());
-            repository.save(mappedUser);
-        }else{
-            throw new UserExistsException();
+        try{
+            if(!isUserExistingByData(mapper.mapToUserDataChecker(userDto))){
+                User mappedUser = mapper.mapToUser(userDto);
+                mappedUser.setCreationDate(new Date());
+                repository.save(mappedUser);
+            }else{
+                throw new UserExistsException();
+            }
+        }catch (UserExistsException e){
+            log.error(e.getMessage());
         }
     }
 
@@ -84,8 +104,12 @@ public class UserService {
     }
 
     private void isUserExisting(Long userId) {
-        if(!repository.existsById(userId)){
-            throw new UserDontExistsException();
+        try{
+            if(!repository.existsById(userId)){
+                throw new UserDontExistsException();
+            }
+        }catch (UserDontExistsException e){
+            log.error(e.getMessage());
         }
     }
 

@@ -23,7 +23,13 @@ public class GroupMessageService {
     }
 
     public GroupMessageDto getById(Long id) {
-        return mapper.mapToGroupMessageDto(repository.findById(id).orElseThrow(GroupMessageNotFoundException::new));
+        try{
+            GroupMessage groupMessage = repository.findById(id).orElseThrow(GroupMessageNotFoundException::new);
+            return mapper.mapToGroupMessageDto(groupMessage);
+        }catch (GroupMessageNotFoundException e){
+            log.error(e.getMessage());
+        }
+        return GroupMessageDto.builder().build();
     }
 
     public GroupMessageDto create(GroupMessageDto groupMessageDto){
@@ -37,7 +43,12 @@ public class GroupMessageService {
     }
 
     public Integer getUnReadMessages(Long convId, Long userId) {
-        GroupMessage fetchedConversation = repository.findById(convId).orElseThrow(GroupMessageNotFoundException::new);
+        GroupMessage fetchedConversation = GroupMessage.builder().build();
+        try{
+            fetchedConversation = repository.findById(convId).orElseThrow(GroupMessageNotFoundException::new);
+        }catch (GroupMessageNotFoundException e){
+            log.info(e.getMessage());
+        }
         return (int) fetchedConversation.getMessagesInConv().stream().filter(m -> m.getAuthor().getId().equals(userId) && !m.isRead()).count();
     }
 }

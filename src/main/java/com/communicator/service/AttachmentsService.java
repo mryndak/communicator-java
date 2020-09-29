@@ -24,7 +24,13 @@ public class AttachmentsService {
     }
 
     public AttachmentsDto getById(Long id) {
-        return mapper.mapToAttachmentsDto(repository.findById(id).orElseThrow(AttachmentNotFoundException::new));
+        try{
+            Attachments attachments = repository.findById(id).orElseThrow(AttachmentNotFoundException::new);
+            return mapper.mapToAttachmentsDto(attachments);
+        }catch (AttachmentNotFoundException e){
+            log.error(e.getMessage());
+        }
+        return AttachmentsDto.builder().build();
     }
 
     public AttachmentsDto create(AttachmentsDto attachmentsDto){
@@ -45,8 +51,12 @@ public class AttachmentsService {
     }
 
     private void isAttachmentExisting(Long userId) {
-        if(!repository.existsById(userId)){
-            throw new AttachmentDontExistsException();
+        try {
+            if(!repository.existsById(userId)){
+                throw new AttachmentDontExistsException();
+            }
+        }catch (AttachmentDontExistsException e){
+            log.error(e.getMessage());
         }
     }
 }

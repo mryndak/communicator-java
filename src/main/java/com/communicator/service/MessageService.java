@@ -24,21 +24,30 @@ public class MessageService {
         return mapper.mapToMessageDto(savedMessage);
     }
 
-    private void isAttachmentExisting(Long userId) {
-        if(!repository.existsById(userId)){
-            throw new MessageDontExistsException();
+    private void isMessageExisting(Long userId) {
+        try{
+            if(!repository.existsById(userId)){
+                throw new MessageDontExistsException();
+            }
+        }catch (MessageDontExistsException e){
+            log.error(e.getMessage());
         }
     }
 
     public MessageDto changeToRead(Long id) {
-        if(id != null){
-            isAttachmentExisting(id);
-        }else{
-            throw new MessageNotFoundException();
+        try{
+            if(id != null){
+                isMessageExisting(id);
+            }else{
+                throw new MessageNotFoundException();
+            }
+            Message fetchedMessage = repository.getOne(id);
+            fetchedMessage.setRead(true);
+            Message savedMessage = repository.save(fetchedMessage);
+            return mapper.mapToMessageDto(savedMessage);
+        }catch (MessageNotFoundException e){
+            log.error(e.getMessage());
         }
-        Message fetchedMessage = repository.getOne(id);
-        fetchedMessage.setRead(true);
-        Message savedMessage = repository.save(fetchedMessage);
-        return mapper.mapToMessageDto(savedMessage);
+        return MessageDto.builder().build();
     }
 }
