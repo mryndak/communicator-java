@@ -23,14 +23,13 @@ public class Message {
     @NotNull
     @ManyToOne
     private User author;
-    @ManyToOne
-    private User receiver;
     @NotNull
     private String content;
     @Builder.Default
     private boolean read = false;
-    @OneToMany
+    @OneToMany(
+            fetch = FetchType.EAGER)
     private List<Attachments> attachmentsList;
     @ManyToOne
-    private Conversation conversation;
+    private GroupMessage groupMessage;
 }

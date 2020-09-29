@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="pl" th:lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <title>Mail</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+        body, html{
+            background-color: #303030;
+        }
+        *{
+            font-family: 'Open Sans', sans-serif;
+            color: #f2f2f2;
+        }
+        body>div>div>p{
+            z-index: 2;
+        }
+        #task-list>li{
+            padding-bottom: 15px;
+        }
+    </style>
+
+</head>
+<body>
+<div style="padding: 20px;box-sizing: border-box;width: 60%;margin-left: auto;position: relative;margin-right: auto;background-color: #3b3b3b;box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.4);border-radius: 15px;">
+    <p style="text-align: center;padding-bottom: 10px;">
+        <span style="font-size: 2.75em;font-weight: 600;" th:text="'Witaj' + ${userData.getFirstname()} + '!'"></span>
+    </p>
+    <p style="font-size: 1.25rem">
+        Masz <span th:span="${unreadMessages}"></span> nieprzeczytane wiadomości
+    </p>
+    <p style="margin-block-end: 0;margin-block-start: 3em;font-size:1em;text-align: center;">
+        <span th:text="${adminConfig.getAdminName()} + ', ' + ${adminConfig.getAdminStreet()} + ' ' + ${adminConfig.getAdminStreetNumber()} + ', ' + ${adminConfig.getAdminMail()}"></span>
+    </p>
+    <img alt="scrum_board" style="width: 50%;margin-left: 50%;" src="undraw_chat_background.png"/>
+</div>
+</body>
+</html>

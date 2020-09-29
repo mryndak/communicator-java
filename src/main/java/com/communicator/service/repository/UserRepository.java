@@ -27,4 +27,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select * from _users where email LIKE CONCAT(?1, '%')",
             nativeQuery = true)
     List<User> findUsingMailPattern(String a);
+    User getByFirstnameAndLastnameAndEmail(String a, String b, String c);
+    boolean existsByFirstnameAndLastnameAndEmail(String a, String b, String c);
+
 }

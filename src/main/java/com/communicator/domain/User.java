@@ -41,32 +41,18 @@ public class User {
     @NotNull
     @OneToOne(cascade = CascadeType.PERSIST)
     private Attachments profilePic;
-    @OneToMany(
-            targetEntity = Conversation.class,
-            mappedBy = "authorUser",
+    @ManyToMany(
+            targetEntity = GroupMessage.class,
+            mappedBy = "usersInConv",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     @Builder.Default
-    private List<Conversation> authorConversation = new ArrayList<>();
-    @OneToMany(
-            targetEntity = Conversation.class,
-            mappedBy = "receiverUser",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<Conversation> receiverConversation = new ArrayList<>();
+    private List<GroupMessage> conversations = new ArrayList<>();
     @OneToMany(
             targetEntity = Message.class,
             mappedBy = "author",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     @Builder.Default
     private List<Message> messageAuthor = new ArrayList<>();
-    @OneToMany(
-            targetEntity = Message.class,
-            mappedBy = "receiver",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<Message> messageReceiver = new ArrayList<>();
 }

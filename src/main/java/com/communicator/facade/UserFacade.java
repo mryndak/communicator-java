@@ -1,6 +1,7 @@
 package com.communicator.facade;
 
 import com.communicator.domain.UserConvDto;
+import com.communicator.domain.UserDataChecker;
 import com.communicator.domain.UserDto;
 import com.communicator.domain.UserSearchDto;
 import com.communicator.facade.logic.UserStatusToggle;
@@ -34,8 +35,8 @@ public class UserFacade {
         return service.getConvById(id);
     }
 
-    public UserDto createUser(UserDto userDto){
-        return service.create(userDto);
+    public void createUser(UserDto userDto){
+        service.create(userDto);
     }
 
     public UserDto updateUser(UserDto userDto){
@@ -76,4 +77,7 @@ public class UserFacade {
         }
     }
 
+    public UserDto getUserByData(String firstname, String lastname, String email) {
+        return service.getUserByData(firstname, lastname, email);
+    }
 }

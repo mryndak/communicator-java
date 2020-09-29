@@ -2,6 +2,7 @@ package com.communicator.service;
 
 import com.communicator.domain.*;
 import com.communicator.exception.UserDontExistsException;
+import com.communicator.exception.UserExistsException;
 import com.communicator.exception.UserNotFoundException;
 import com.communicator.mapper.UserMapper;
 import com.communicator.service.repository.UserRepository;
@@ -63,17 +64,12 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto create(UserDto userDto){
-        User mappedUser = mapper.mapToUser(userDto);
-        Attachments profilePicture = Attachments.builder()
-                .fileName("950-9501315_katie-notopoulos-katienotopoulos-i-write-about-tech-user")
-                .fileExtension("PNG")
-                .filePath("https://www.pngkey.com/png/detail/950-9501315_katie-notopoulos-katienotopoulos-i-write-about-tech-user.png")
-                .build();
-        mappedUser.setCreationDate(new Date());
-        mappedUser.setProfilePic(profilePicture);
-        User savedUser = repository.save(mappedUser);
-        return mapper.mapToUserDto(savedUser);
+    public void create(UserDto userDto){
+        if(!isUserExistingByData(mapper.mapToUserDataChecker(userDto))){
+            User mappedUser = mapper.mapToUser(userDto);
+            mappedUser.setCreationDate(new Date());
+            repository.save(mappedUser);
+        }
     }
 
     public UserDto update(UserDto userDto){
@@ -97,5 +93,13 @@ public class UserService {
         if(!repository.existsById(userId)){
             throw new UserDontExistsException();
         }
+    }
+
+    public UserDto getUserByData(String firstname, String lastname, String email) {
+        return mapper.mapToUserDto(repository.getByFirstnameAndLastnameAndEmail(firstname, lastname, email));
+    }
+
+    public boolean isUserExistingByData(UserDataChecker userDataChecker){
+        return repository.existsByFirstnameAndLastnameAndEmail(userDataChecker.getFirstname(),userDataChecker.getLastname(),userDataChecker.getEmail());
     }
 }

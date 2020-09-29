@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Service
@@ -27,9 +28,10 @@ public class MessageService {
         return mapper.mapToMessageDto(repository.findById(id).orElseThrow(MessageNotFoundException::new));
     }
 
-    public MessageDto create(MessageDto attachmentsDto){
-        Message mappedMessage = mapper.mapToMessage(attachmentsDto);
+    public MessageDto create(MessageDto messageDto){
+        Message mappedMessage = mapper.mapToMessage(messageDto);
         Message savedMessage = repository.save(mappedMessage);
+        repository.createMessageInConv(messageDto.getGroupMessage().getId(), savedMessage.getId());
         return mapper.mapToMessageDto(savedMessage);
     }
 
@@ -54,5 +56,17 @@ public class MessageService {
         if(!repository.existsById(userId)){
             throw new MessageDontExistsException();
         }
+    }
+
+    public MessageDto changeToRead(Long id) {
+        if(id != null){
+            isAttachmentExisting(id);
+        }else{
+            throw new MessageNotFoundException();
+        }
+        Message fetchedMessage = repository.getOne(id);
+        fetchedMessage.setRead(true);
+        Message savedMessage = repository.save(fetchedMessage);
+        return mapper.mapToMessageDto(savedMessage);
     }
 }

@@ -1,8 +1,8 @@
 package com.communicator.exception;
 
-public class ConversationDontExistsException extends RuntimeException {
+public class GroupMessageDontExistsException extends RuntimeException {
     private final static String message = "Konwersacja nie istnieje";
-    public ConversationDontExistsException(){
+    public GroupMessageDontExistsException(){
         super(message);
     }
 }

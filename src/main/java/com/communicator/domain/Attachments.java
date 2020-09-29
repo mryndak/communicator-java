@@ -29,4 +29,7 @@ public class Attachments {
     private Message fileInMessage;
     @OneToOne(cascade = CascadeType.PERSIST)
     private User userAttachment;
+    @OneToOne(cascade = CascadeType.PERSIST,
+            fetch = FetchType.EAGER)
+    private User groupPicture;
 }

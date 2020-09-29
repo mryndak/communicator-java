@@ -1,6 +1,7 @@
 package com.communicator.controller;
 
 import com.communicator.domain.UserConvDto;
+import com.communicator.domain.UserDataChecker;
 import com.communicator.domain.UserDto;
 import com.communicator.domain.UserSearchDto;
 import com.communicator.facade.UserFacade;
@@ -34,9 +35,19 @@ public class UserController {
         return facade.getUserByRegexPattern(searchType, searchValue);
     }
 
+    @GetMapping(value = "/googleauth", produces = APPLICATION_JSON_VALUE)
+    public UserDto getUserByMailAndName(@RequestParam String firstname,@RequestParam String lastname,@RequestParam String email){
+        return facade.getUserByData(firstname, lastname, email);
+    }
+
     @PostMapping(produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public UserDto createUser(@RequestBody UserDto userDto){
-        return facade.createUser(userDto);
+    public void createUser(@RequestBody UserDto userDto){
+        facade.createUser(userDto);
+    }
+
+    @PutMapping(produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    public UserDto updateUser(@RequestBody UserDto userDto){
+        return facade.updateUser(userDto);
     }
 
     @PutMapping(value = "/{id}/banned", produces = APPLICATION_JSON_VALUE)

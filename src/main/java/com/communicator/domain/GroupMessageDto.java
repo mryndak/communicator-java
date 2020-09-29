@@ -7,16 +7,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MessageDto {
+public class GroupMessageDto {
     private Long id;
-    private UserConvDto author;
-    private GroupMessageDto groupMessage;
-    private String content;
-    private boolean read;
+    private List<UserConvDto> usersInConv;
+    private List<MessageBlopDto> messagesInConv;
+    private String customName;
+    private AttachmentsDto groupPicture;
 }

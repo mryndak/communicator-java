@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +23,10 @@ public class MessageFacade {
 
     public MessageDto createMessage(MessageDto messageDto){
         return service.create(messageDto);
+    }
+
+    public MessageDto updateMessage(Long id){
+        return service.changeToRead(id);
     }
 
     public MessageDto getMessageById(Long id) {

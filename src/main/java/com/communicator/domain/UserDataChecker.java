@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AttachmentsDto {
-    private Long id;
-    private String fileName;
-    private String filePath;
+public class UserDataChecker {
+    private String firstname;
+    private String lastname;
+    private String email;
 }

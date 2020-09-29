@@ -9,30 +9,30 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "_conversation")
-public class Conversation {
+@Table(name = "_group_message")
+public class GroupMessage {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @ManyToOne
-    private User authorUser;
-    @NotNull
-    @ManyToOne
-    private User receiverUser;
-    @NotNull
-    @Builder.Default
-    @OneToMany(
-            targetEntity = Message.class,
-            mappedBy = "conversation",
+    @ManyToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
-    private List<Message> conversationMessages = new ArrayList<>();
+            fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<User> usersInConv = new ArrayList<>();
+    @NotNull
+    @ManyToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<Message> messagesInConv = new ArrayList<>();
+    private String customName;
+    @OneToOne
+    private Attachments groupPicture;
 }

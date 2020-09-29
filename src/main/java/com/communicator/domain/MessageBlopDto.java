@@ -16,4 +16,5 @@ public class MessageBlopDto {
     private UserConvDto author;
     private String content;
     private List<AttachmentsDto> attachmentsList;
+    private boolean read;
 }
