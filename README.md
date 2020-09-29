@@ -1,11 +1,10 @@
 # Delta communicator
 > Messenger stylized by popular messengers
->
+
 ![Badge](https://img.shields.io/badge/status-in_progres-yellow.svg?style=for-the-badge)
 
 ## Table of contents
 * [General info](#general-info)
-* [Screenshots](#screenshots)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Features](#features)
@@ -14,16 +13,6 @@
 
 ## General info
 Messenger stylized by popular messengers
-
-## Screenshots
-![Login screenshot](https://i.imgur.com/lFpSX0u.png)
-
-![Login screenshot](https://i.imgur.com/4MKzlJh.png)
-
-![Login screenshot](https://i.imgur.com/4WEtoW2.png)
-
-![Login screenshot](https://i.imgur.com/tz9VDex.png)
-
 ## Technologies
 * Spring - version 2.3.3.RELEASE
 * Lombok - version 1.18.12
