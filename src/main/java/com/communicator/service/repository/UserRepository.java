@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@SuppressWarnings("SqlResolve")
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select * from _users where firstname LIKE CONCAT(?1, '%') AND lastname LIKE CONCAT(?2, '%')",

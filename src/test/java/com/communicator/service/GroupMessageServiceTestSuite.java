@@ -71,13 +71,6 @@ public class GroupMessageServiceTestSuite {
                 .id(1L)
                 .build();
         List<MessageBlopDto> messageBlopDtos = new ArrayList<>();
-        Message message = Message.builder()
-                .id(1L)
-                .author(user)
-                .content("hej")
-                .groupMessage(groupMessage)
-                .read(false)
-                .build();
         MessageBlopDto messageBlopDto = MessageBlopDto.builder()
                 .id(1L)
                 .author(userDto)

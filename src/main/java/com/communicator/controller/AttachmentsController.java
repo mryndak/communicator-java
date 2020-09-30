@@ -36,4 +36,9 @@ public class AttachmentsController {
         return facade.updateAttachment(attachmentsDto);
     }
 
+    @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    public void deleteAttachment(@PathVariable Long id){
+        facade.deleteAttachment(id);
+    }
+
 }
