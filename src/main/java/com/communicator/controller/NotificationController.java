@@ -1,14 +1,10 @@
 package com.communicator.controller;
 
-import com.communicator.domain.Notification;
 import com.communicator.domain.NotificationDto;
-import com.communicator.facade.MessageFacade;
 import com.communicator.facade.NotificationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-import java.util.HashMap;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;

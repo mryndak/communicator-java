@@ -27,5 +27,6 @@ public class Notification {
     @NotNull
     private String typeOfOperation;
     @ElementCollection
+    @Builder.Default
     private List<String> operationsParameters = new ArrayList<>();
 }

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -29,7 +28,7 @@ public class MessageService {
         Message mappedMessage = mapper.mapToMessage(messageDto);
         Message savedMessage = repository.save(mappedMessage);
         List<String> params = new ArrayList<>();
-        params.add(String.valueOf(mappedMessage.getGroupMessage().getId()));
+        params.add(mappedMessage.getGroupMessage().getId().toString());
         NotificationDto notificationDto = NotificationDto.builder()
                 .receiver(messageDto.getAuthor())
                 .typeOfOperation("newMessage")
@@ -67,8 +66,4 @@ public class MessageService {
         return MessageDto.builder().build();
     }
 
-    public HashMap<Long, Boolean> getAllMessagesInConv(Long userId) {
-        List<Message> user;
-        return new HashMap<>();
-    }
 }

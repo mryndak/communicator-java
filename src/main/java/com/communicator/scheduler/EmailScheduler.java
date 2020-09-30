@@ -6,6 +6,7 @@ import com.communicator.domain.UserDto;
 import com.communicator.service.EmailService;
 import com.communicator.service.GroupMessageService;
 import com.communicator.service.UserService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
+@Getter
 @Slf4j
 @RequiredArgsConstructor
 public class EmailScheduler {
@@ -46,8 +48,9 @@ public class EmailScheduler {
                         .recipient(u)
                         .unreadMessage(countUnreadArray.get(u.getId()).longValue())
                         .build();
-                emailService.send(mail);
+                emailService.send(mail, 1);
             }
         });
     }
+
 }

@@ -3,16 +3,11 @@ package com.communicator.service;
 import com.communicator.domain.*;
 import com.communicator.exception.*;
 import com.communicator.mapper.NotificationMapper;
-import com.communicator.mapper.UserMapper;
 import com.communicator.service.repository.NotificationRepository;
-import com.communicator.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service

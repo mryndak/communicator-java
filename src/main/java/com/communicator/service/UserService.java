@@ -58,7 +58,7 @@ public class UserService {
         return getUserSearchDtos(usersTypeA, usersTypeB);
     }
 
-    private List<UserSearchDto> getUserSearchDtos(List<User> usersTypeA, List<User> usersTypeB) {
+    List<UserSearchDto> getUserSearchDtos(List<User> usersTypeA, List<User> usersTypeB) {
         try{
             if(usersTypeA.size() > usersTypeB.size()){
                 return mapper.mapUserListToUserSearchDtoList(usersTypeA);

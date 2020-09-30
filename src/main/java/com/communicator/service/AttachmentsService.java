@@ -3,6 +3,7 @@ package com.communicator.service;
 import com.communicator.domain.Attachments;
 import com.communicator.domain.AttachmentsDto;
 import com.communicator.exception.AttachmentDontExistsException;
+import com.communicator.exception.AttachmentExistsException;
 import com.communicator.exception.AttachmentNotFoundException;
 import com.communicator.mapper.AttachmentsMapper;
 import com.communicator.service.repository.AttachmentsRepository;
@@ -34,26 +35,40 @@ public class AttachmentsService {
     }
 
     public AttachmentsDto create(AttachmentsDto attachmentsDto){
+        if(attachmentsDto.getId() != null){
+            isAttachmentNotExisting(attachmentsDto.getId());
+        }
         Attachments mappedAttachments = mapper.mapToAttachments(attachmentsDto);
         Attachments savedAttachments = repository.save(mappedAttachments);
         return mapper.mapToAttachmentsDto(savedAttachments);
     }
 
     public AttachmentsDto update(AttachmentsDto attachmentsDto){
+        isAttachmentExisting(attachmentsDto.getId());
         Attachments mappedAttachments = mapper.mapToAttachments(attachmentsDto);
         Attachments savedAttachments = repository.save(mappedAttachments);
         return mapper.mapToAttachmentsDto(savedAttachments);
     }
 
-    public void delete(AttachmentsDto attachmentsDto){
-        Attachments mappedAttachments = mapper.mapToAttachments(attachmentsDto);
-        repository.delete(mappedAttachments);
+    public void delete(Long id){
+        isAttachmentNotExisting(id);
+        repository.deleteById(id);
+    }
+
+    private void isAttachmentNotExisting(Long userId) {
+        try {
+            if(!repository.existsById(userId)){
+                throw new AttachmentDontExistsException();
+            }
+        }catch (AttachmentDontExistsException e){
+            log.error(e.getMessage());
+        }
     }
 
     private void isAttachmentExisting(Long userId) {
         try {
-            if(!repository.existsById(userId)){
-                throw new AttachmentDontExistsException();
+            if(repository.existsById(userId)){
+                throw new AttachmentExistsException();
             }
         }catch (AttachmentDontExistsException e){
             log.error(e.getMessage());

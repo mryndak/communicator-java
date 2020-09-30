@@ -13,4 +13,7 @@ public class AttachmentsDto {
     private Long id;
     private String fileName;
     private String filePath;
+    private String fileExtension;
+    private MessageDto fileInMessage;
+    private UserDto userAttachment;
 }

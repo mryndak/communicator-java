@@ -58,7 +58,6 @@ public class UserFacade {
     }
 
     public List<UserSearchDto> getUserByRegexPattern(Long type, String pattern) {
-        log.info(String.valueOf(pattern));
         if(type == 0){
             return service.getBySingleNamePattern(pattern);
         }else if(type == 1){
